@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import tw from "tailwind-styled-components"
 import Map from "./components/Map"
+import Link from "next/link"
 
 export default function Home() {
 
@@ -33,6 +34,7 @@ export default function Home() {
             <ActionButton><ActionButtonImage src='https://i.ibb.co/5RjchBg/uberschedule.png' /> Reserve</ActionButton>         
           </ActionButtons>
           {/* InputButton */}
+          <InputButton>Where to?</InputButton>
         </ActionItems>
       </Wrapper>
     </>
@@ -77,4 +79,8 @@ const ActionButton = tw.div`
 
 const ActionButtonImage = tw.img`
   h-3/5
+`
+
+const InputButton = tw.div`
+  h-20 bg-gray-200 text-2xl p-4 flex items-center mt-8
 `
