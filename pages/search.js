@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import tw from "tailwind-styled-components"
 import Link from 'next/link'
-import InputBoxes from "./components/InputBoxes";
 
 const Search = () => {
     const [pickup, setPickup ] = useState("");
   const [dropoff, setDropoff ] = useState("");
 
+  console.log(pickup)
   return (
     <Wrapper>
       {/* Button Container */}
@@ -23,7 +23,10 @@ const Search = () => {
             <Square src='https://img.icons8.com/windows/50/000000/square-full.png' />
         </FromToIcons>
 
-        <InputBoxes />
+        <InputBoxes>
+            <Input placeholder="Enter Pickup Location" value={pickup} onChange={(e) => setPickup(e.target.value)} />
+            <Input placeholder="Where To?" value={dropoff} onChange={(e) => setDropoff(e.target.value)} />
+        </InputBoxes>        
         <PlusIcon src='https://img.icons8.com/ios/50/000000/plus-math.png' />
       </InputContainer>
       {/* Saved Places */}
@@ -81,12 +84,20 @@ const Square = tw.img`
     h-3
 `
 
+const InputBoxes = tw.div`
+    flex flex-col flex-1
+`
+
+const Input = tw.input`
+    h-10 bg-gray-200 my-2 rounded-2 p-2 outline-none border-none
+`
+
 const PlusIcon = tw.img`
     w-10 h-10 bg-gray-200 rounded-full ml-3
 `
 
 const SavedPlaces = tw.div`
-    flex items-center bg-white px-4 py-2
+    flex items-center bg-white px-4 py-2 font-bold
 `
 
 const StarIcon = tw.img`
@@ -94,5 +105,5 @@ const StarIcon = tw.img`
 `
 
 const ConfirmButtonContainer = tw.div`
-    bg-black text-white text-center mt-2 mx-4 px-4 py-3 text-2xl cursor-pointer
+    bg-black text-white text-center mt-4 mx-4 px-4 py-3 text-2xl cursor-pointer
 `

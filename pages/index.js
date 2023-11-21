@@ -29,7 +29,11 @@ export default function Home() {
           </Header>
           {/* ActionButtons */}
           <ActionButtons>
-            <ActionButton><ActionButtonImage src='https://i.ibb.co/cyvcpfF/uberx.png' /> Ride</ActionButton>         
+
+            <StyledLink href="/search" passHref>
+
+              <ActionButton><ActionButtonImage src='https://i.ibb.co/cyvcpfF/uberx.png' /> Ride</ActionButton>         
+            </StyledLink>
             <ActionButton><ActionButtonImage src='https://i.ibb.co/n776JLm/bike.png' /> Wheels</ActionButton>         
             <ActionButton><ActionButtonImage src='https://i.ibb.co/5RjchBg/uberschedule.png' /> Reserve</ActionButton>         
           </ActionButtons>
@@ -46,7 +50,7 @@ const Wrapper = tw.div`
 `
 
 const ActionItems = tw.div`
-  flex-1  p-4
+  flex-1 p-4
 `
 
 const Header = tw.div`
@@ -83,4 +87,8 @@ const ActionButtonImage = tw.img`
 
 const InputButton = tw.div`
   h-20 bg-gray-200 text-2xl p-4 flex items-center mt-8
+`
+
+const StyledLink = tw.a`
+  flex flex-1
 `
