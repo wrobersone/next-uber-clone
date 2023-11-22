@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from "tailwind-styled-components"
 import { carList } from "../data/carList"
 
-const RideSelector = () => {
+const RideSelector = ({ pickupCoordinates, dropoffCoordinates }) => {
+  const [rideDuration, setRideDuration] = useState(0);
+
+  useEffect(() => {
+    const rideDuration = fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]}, ${pickupCoordinates[1]};${dropoffCoordinates[0]}, ${dropoffCoordinates[1]}?access_token=pk.eyJ1Ijoid3JvYmVyc29uZSIsImEiOiJjbGI4OHBnN3kwaW54M29rdTVpdnlkNzJvIn0.viNw-nL81-hmAlyMHejG7Q`)
+    .then(res => res.json())
+    .then(data => {
+      setRideDuration(data.routes[0]?.duration / 100)
+    })
+  }, [pickupCoordinates, dropoffCoordinates])
+
   return (
     <Wrapper>
       <Title>Choose a ride, or swipe up for more</Title>
@@ -15,7 +25,7 @@ const RideSelector = () => {
               <Service>{car.service}</Service>
               <Time>5 min away</Time>
             </CarDetails>
-            <Price> $24.00</Price>
+            <Price>{'$' + (rideDuration * car.multiplier).toFixed(2)}</Price>
           </Car>
         ))}
 
@@ -28,15 +38,16 @@ const RideSelector = () => {
 export default RideSelector
 
 const Wrapper = tw.div`
-    flex-1
+    flex flex-col flex-1 overflow-y-scroll
 `
 
 const Title = tw.div`
     text-center text-gray-500 text-xs py-2 border-b
 `
 
-const CarList = tw.div``
-
+const CarList = tw.div`
+  overflow-y-scroll
+`
 
 const Car = tw.div`
   flex p-4 items-center
