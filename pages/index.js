@@ -23,7 +23,7 @@ export default function Home() {
           <Header>
             <UberLogo src='https://i.ibb.co/84stgjq/uber-technologies-new-20218114.jpg' />
             <Profile>
-              <Name>Profile User</Name>
+              <Name>William Robersone</Name>
               <UserImage src="https://lh3.googleusercontent.com/a/ACg8ocJuFH3j5j5XYiReDUBZmGCT0a7Ds2f-iN-cx07TzA6Www=s288-c-no" />
             </Profile>
           </Header>
@@ -66,7 +66,7 @@ const Profile = tw.div`
 `
 
 const Name = tw.div`
-  mr-4 w-20 text-sm
+  mr-1 w-20 text-sm
 `
 
 const UserImage = tw.img`
