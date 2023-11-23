@@ -4,8 +4,28 @@ import styles from '@/styles/Home.module.css'
 import tw from "tailwind-styled-components"
 import Map from "./components/Map"
 import Link from "next/link"
+import { useState, useEffect } from "react"
+import { onAuthStateChanged, signOut } from "firebase/auth"
+import { useRouter } from "next/router"
+import { auth } from "@/firebase"
 
 export default function Home() {
+  const [user, setUser] = useState(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    return onAuthStateChanged(auth, user => {
+      if (user) {
+        setUser({
+          name: user.displayName,
+          photoUrl: user.photoURL,
+        })
+      } else {
+        setUser(null)
+        router.push('/login')
+      }
+    })
+  }, [])
 
   return (
     <>
@@ -23,15 +43,13 @@ export default function Home() {
           <Header>
             <UberLogo src='https://i.ibb.co/84stgjq/uber-technologies-new-20218114.jpg' />
             <Profile>
-              <Name>William Robersone</Name>
-              <UserImage src="https://lh3.googleusercontent.com/a/ACg8ocJuFH3j5j5XYiReDUBZmGCT0a7Ds2f-iN-cx07TzA6Www=s288-c-no" />
+              <Name>{user && user.name}</Name>
+              <UserImage src={user && user.photoUrl} onClick={() => signOut(auth)} />
             </Profile>
           </Header>
           {/* ActionButtons */}
           <ActionButtons>
-
             <StyledLink href="/search" passHref>
-
               <ActionButton><ActionButtonImage src='https://i.ibb.co/cyvcpfF/uberx.png' /> Ride</ActionButton>         
             </StyledLink>
             <ActionButton><ActionButtonImage src='https://i.ibb.co/n776JLm/bike.png' /> Wheels</ActionButton>         
@@ -70,7 +88,7 @@ const Name = tw.div`
 `
 
 const UserImage = tw.img`
-  h-12 w-12 rounded-full border border-gray-200 p-px
+  h-12 w-12 rounded-full border border-gray-200 p-px cursor-pointer
 `
 
 const ActionButtons = tw.div`
